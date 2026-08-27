@@ -17,6 +17,8 @@ public:
 
 private:
     Ui::Widget *ui;
+    QStringList image;
+    int _index_picture;
 };
 
 

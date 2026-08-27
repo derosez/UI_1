@@ -1,3 +1,9 @@
 <RCC>
-    <qresource prefix="/new/picture"/>
+    <qresource prefix="/new/picture">
+        <file>C:/Users/Branton/Desktop/bg/1.png</file>
+        <file>C:/Users/Branton/Desktop/bg/2.png</file>
+        <file>C:/Users/Branton/Desktop/bg/3.png</file>
+        <file>C:/Users/Branton/Desktop/bg/4.png</file>
+        <file>C:/Users/Branton/Desktop/bg/5.png</file>
+    </qresource>
 </RCC>
