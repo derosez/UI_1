@@ -19,9 +19,9 @@ loading_window::loading_window(QWidget *parent) :
        }
        else{
            timer->stop();
-           this->hide();
            Widget* w = new Widget();
            w->show();
+           this->hide();
        }
 
     });

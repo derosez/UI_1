@@ -16,12 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    bar_widget.cpp \
     loading_window.cpp \
     login_window.cpp \
     main.cpp \
     widget.cpp
 
 HEADERS += \
+    bar_widget.h \
     loading_window.h \
     login_window.h \
     widget.h

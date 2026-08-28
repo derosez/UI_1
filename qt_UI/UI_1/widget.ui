@@ -29,7 +29,7 @@
     </size>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QPushButton" name="pushButton_next_picture">
@@ -41,8 +41,26 @@
        <height>91</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#pushButton_last_picture, 
+QPushButton#pushButton_next_picture {
+   background-color: transparent;
+   color: white;
+   font-size: 40px;
+   font-weight: bold;
+   border: none;
+}
+QPushButton#pushButton_last_picture:hover, 
+QPushButton#pushButton_next_picture:hover {
+   color: #cccccc;
+}
+QPushButton#pushButton_last_picture:pressed, 
+QPushButton#pushButton_next_picture:pressed {
+   color: #999999;
+}</string>
+     </property>
      <property name="text">
-      <string>PushButton</string>
+      <string>&gt;</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_last_picture">
@@ -54,15 +72,33 @@
        <height>91</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#pushButton_last_picture, 
+QPushButton#pushButton_next_picture {
+   background-color: transparent;
+   color: white;
+   font-size: 40px;
+   font-weight: bold;
+   border: none;
+}
+QPushButton#pushButton_last_picture:hover, 
+QPushButton#pushButton_next_picture:hover {
+   color: #cccccc;
+}
+QPushButton#pushButton_last_picture:pressed, 
+QPushButton#pushButton_next_picture:pressed {
+   color: #999999;
+}</string>
+     </property>
      <property name="text">
-      <string>PushButton</string>
+      <string>&lt;</string>
      </property>
     </widget>
     <widget class="QWidget" name="horizontalLayoutWidget_2">
      <property name="geometry">
       <rect>
        <x>280</x>
-       <y>400</y>
+       <y>430</y>
        <width>161</width>
        <height>31</height>
       </rect>
@@ -221,10 +257,10 @@ background:black;</string>
     <widget class="QWidget" name="widget_carouse" native="true">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>20</x>
        <y>60</y>
-       <width>550</width>
-       <height>300</height>
+       <width>681</width>
+       <height>341</height>
       </rect>
      </property>
      <widget class="QLabel" name="label_1_picture">
@@ -243,8 +279,8 @@ background:black;</string>
      <widget class="QLabel" name="label_2_picture">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>80</y>
+        <x>90</x>
+        <y>60</y>
         <width>111</width>
         <height>151</height>
        </rect>
@@ -293,8 +329,23 @@ background:black;</string>
       </property>
      </widget>
     </widget>
+    <zorder>horizontalLayoutWidget_2</zorder>
+    <zorder>widget_carouse</zorder>
+    <zorder>pushButton_last_picture</zorder>
+    <zorder>pushButton_next_picture</zorder>
    </widget>
-   <widget class="QWidget" name="page_2"/>
+   <widget class="QWidget" name="page_2">
+    <widget class="bar_widget" name="widget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>701</width>
+       <height>481</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="page_3"/>
    <widget class="QWidget" name="page_4"/>
    <widget class="QWidget" name="page_5"/>
@@ -403,6 +454,14 @@ background:black;</string>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>bar_widget</class>
+   <extends>QWidget</extends>
+   <header>bar_widget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

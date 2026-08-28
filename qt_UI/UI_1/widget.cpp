@@ -34,12 +34,18 @@ Widget::Widget(QWidget *parent)
           << "C:/Users/Branton/Desktop/bg/4.png"
           << "C:/Users/Branton/Desktop/bg/5.png";
 
-
-        positions[0]=QRect(-70, 60, 150, 180);
-        positions[1]=QRect(50, 60, 150, 180);
-        positions[2]=QRect(125, 50, 300, 200);
-        positions[3]=QRect(350, 60, 150, 180);
-        positions[4]=QRect(470, 60, 150, 180);
+        // 适配 681x341 的容器大小
+        // 假设图片大小为 360x240，Y坐标居中：(341 - 240) / 2 ≈ 50
+        // X坐标分配：
+        // 中间(坑位2)居中：(681 - 360) / 2 ≈ 160
+        // 左侧(坑位1)：露出左边一部分，比如 X = 20
+        // 右侧(坑位3)：露出右边一部分，比如 X = 300
+        // 最外侧(坑位0, 4)：移到容器边缘之外或边缘处
+        positions[0]=QRect(-200, 50, 360, 240); // 最左侧，大部分在屏幕外
+        positions[1]=QRect(20, 50, 360, 240);   // 左侧
+        positions[2]=QRect(160, 50, 360, 240);  // 中间，完全展示
+        positions[3]=QRect(300, 50, 360, 240);  // 右侧
+        positions[4]=QRect(520, 50, 360, 240);  // 最右侧，大部分在屏幕外
 
         label_list[0] = ui->label_1_picture;
         label_list[1] = ui->label_2_picture;
@@ -63,27 +69,44 @@ Widget::Widget(QWidget *parent)
 
 
 void Widget::update_picture(){
+    label_list[0]->raise();
+    label_list[4]->raise();
+    label_list[1]->raise();
+    label_list[3]->raise();
+    label_list[2]->raise();
 
-    int count = image.size();
-    for(auto labels : label){
-         if(effect){
-             QPropertyAnimation* animation = new QPropertyAnimation(effect,"opacity");
-             animation->setDuration(300);
-             animation->setStartValue(0.3);
-             animation->setEndValue(1.0);
-             group->addAnimation(animation);
-           }
-       }
+    ui->pushButton_next_picture->raise();
+    ui->pushButton_last_picture->raise();
 
-       group->start(QAbstractAnimation::DeleteWhenStopped);
+    QParallelAnimationGroup* group = new QParallelAnimationGroup(this);
+    for(int i = 0; i < 5; ++i){
+        QPropertyAnimation* animation = new QPropertyAnimation(label_list[i],"geometry");
+        animation->setDuration(300);
+        animation->setStartValue(label_list[i]->geometry());
+        animation->setEndValue(positions[i]);
+        group->addAnimation(animation);
+    }
+
+    group->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void Widget::clicked_next_picture(){
+    QLabel* temp = label_list[image.size()-1];
+    for(int i = 4; i > 0; i--){
+        label_list[i] = label_list[i-1];
+    }
+    label_list[0] = temp;
+    label_list[0]->setGeometry(positions[0]);
     update_picture();
 }
 
 void Widget::clicked_last_picture(){
-
+    QLabel* temp = label_list[0];
+    for(int i = 0; i < 4 ; ++i){
+        label_list[i] = label_list[i+1];
+    }
+    label_list[4] = temp;
+    label_list[4]->setGeometry(positions[4]);
     update_picture();
 }
 
