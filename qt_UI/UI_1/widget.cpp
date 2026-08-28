@@ -28,50 +28,63 @@ Widget::Widget(QWidget *parent)
 
 
 
-    image << ":/new/picture/C:/Users/Branton/Desktop/bg/1.png"
-          << ":/new/picture/C:/Users/Branton/Desktop/bg/2.png"
-          << ":/new/picture/C:/Users/Branton/Desktop/bg/3.png"
-          << ":/new/picture/C:/Users/Branton/Desktop/bg/4.png"
-          << ":/new/picture/C:/Users/Branton/Desktop/bg/5.png";
-    _index_picture = 0;
-    ui->label_pickture->setPixmap(image[_index_picture]);
-    // 切换图片
-    connect(ui->pushButton_last_picture,&QPushButton::clicked,this,[=]{
-        _index_picture -= 1;
-        if(_index_picture < 0){
-            _index_picture = 4;
-        }
-        ui->label_pickture->setPixmap(image[_index_picture]);
-    });
-    connect(ui->pushButton_next_picture,&QPushButton::clicked,this,[=]{
-        _index_picture += 1;
-        if(_index_picture > 4){
-            _index_picture = 0;
-        }
-        ui->label_pickture->setPixmap(image[_index_picture]);
-    });
+    image << "C:/Users/Branton/Desktop/bg/1.png"
+          << "C:/Users/Branton/Desktop/bg/2.png"
+          << "C:/Users/Branton/Desktop/bg/3.png"
+          << "C:/Users/Branton/Desktop/bg/4.png"
+          << "C:/Users/Branton/Desktop/bg/5.png";
 
-    //图片point
-    connect(ui->pushButton_point_0,&QPushButton::clicked,this,[=]{
-        ui->label_pickture->setPixmap(image[0]);
-        _index_picture = 0;
-    });
-    connect(ui->pushButton_point_1,&QPushButton::clicked,this,[=]{
-        ui->label_pickture->setPixmap(image[1]);
-        _index_picture = 1;
-    });
-    connect(ui->pushButton_point_2,&QPushButton::clicked,this,[=]{
-        ui->label_pickture->setPixmap(image[2]);
-        _index_picture = 2;
-    });
-    connect(ui->pushButton_point_3,&QPushButton::clicked,this,[=]{
-        ui->label_pickture->setPixmap(image[3]);
-        _index_picture = 3;
-    });
-    connect(ui->pushButton_point_4,&QPushButton::clicked,this,[=]{
-        ui->label_pickture->setPixmap(image[4]);
-        _index_picture = 4;
-    });
+
+        positions[0]=QRect(-70, 60, 150, 180);
+        positions[1]=QRect(50, 60, 150, 180);
+        positions[2]=QRect(125, 50, 300, 200);
+        positions[3]=QRect(350, 60, 150, 180);
+        positions[4]=QRect(470, 60, 150, 180);
+
+        label_list[0] = ui->label_1_picture;
+        label_list[1] = ui->label_2_picture;
+        label_list[2] = ui->label_3_picture;
+        label_list[3] = ui->label_4_picture;
+        label_list[4] = ui->label_5_picture;
+
+    for(int i = 0; i < 5; ++i){
+        label_list[i]->setGeometry(positions[i]);
+        label_list[i]->setPixmap(image[i]);
+        label_list[i]->setScaledContents(true);
+    }
+
+
+    connect(ui->pushButton_next_picture,&QPushButton::clicked,
+            this,&Widget::clicked_next_picture);
+
+    connect(ui->pushButton_last_picture,&QPushButton::clicked,
+            this,&Widget::clicked_last_picture);
+}
+
+
+void Widget::update_picture(){
+
+    int count = image.size();
+    for(auto labels : label){
+         if(effect){
+             QPropertyAnimation* animation = new QPropertyAnimation(effect,"opacity");
+             animation->setDuration(300);
+             animation->setStartValue(0.3);
+             animation->setEndValue(1.0);
+             group->addAnimation(animation);
+           }
+       }
+
+       group->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void Widget::clicked_next_picture(){
+    update_picture();
+}
+
+void Widget::clicked_last_picture(){
+
+    update_picture();
 }
 
 Widget::~Widget()

@@ -2,6 +2,10 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
+#include <QParallelAnimationGroup>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -18,7 +22,14 @@ public:
 private:
     Ui::Widget *ui;
     QStringList image;
-    int _index_picture;
+    QRect  positions[5];
+    QLabel* label_list[5];
+
+
+private:
+    void update_picture();
+    void clicked_next_picture();
+    void clicked_last_picture();
 };
 
 
